@@ -1,0 +1,35 @@
+{
+  "server": {
+    "scheme": "http",
+    "host": "https://localhost",
+    "port": 3000
+  },
+  "log4js": {
+    "appenders": {
+      "dateFile": {
+        "type": "dateFile",
+        "filename": "./logs/server.log",
+        "pattern": "-yyyy-MM-dd"
+      },
+      "console": {
+        "type": "console"
+      }
+    },
+    "categories": {
+      "default": {
+        "appenders": [
+          "dateFile",
+          "console"
+        ],
+        "level": "debug"
+      }
+    },
+    "replaceConsole": true
+  },
+  "auth": {
+    "tokenDuration": {
+      "unit": "hours",
+      "value": 5
+    }
+  }
+}
