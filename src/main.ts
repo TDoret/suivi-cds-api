@@ -2,14 +2,13 @@ import { NestFactory } from '@nestjs/core';
 import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import {CorsOptions} from '@nestjs/common/interfaces/external/cors-options.interface';
-import {configure, connectLogger, getLogger} from 'log4js';
+import {configure, getLogger} from 'log4js';
 import * as config from 'config';
 import * as shell from 'shelljs';
 
 async function configureLogging() {
     shell.mkdir('-p', 'logs');
-    await configure(config.get('log4js'));
-    return 1;
+    configure(config.get('log4js'));
 }
 
 async function bootstrap() {
