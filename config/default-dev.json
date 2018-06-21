@@ -2,7 +2,16 @@
   "server": {
     "scheme": "http",
     "host": "https://localhost",
-    "port": 3000
+    "port": 3000,
+    "mongo": {
+      "connectionString": "mongodb://dev:dev123@ds263660.mlab.com:63660/suivi-cds",
+      "options": {
+        "socketTimeoutMS": 0,
+        "keepAlive": true,
+        "reconnectTries": 30,
+        "useMongoClient": true
+      }
+    }
   },
   "log4js": {
     "appenders": {
