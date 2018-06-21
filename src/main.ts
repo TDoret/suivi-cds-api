@@ -5,7 +5,6 @@ import {CorsOptions} from '@nestjs/common/interfaces/external/cors-options.inter
 import {configure, connectLogger, getLogger} from 'log4js';
 import * as config from 'config';
 import * as shell from 'shelljs';
-import * as SwaggerUI from 'swagger-ui-express';
 
 async function configureLogging() {
     shell.mkdir('-p', 'logs');
@@ -35,14 +34,16 @@ async function bootstrap() {
         allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'token'],
         exposedHeaders: ['Content-Type', 'token'],
         credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'HEAD', 'DEvarE', 'OPTIONS'],
+        methods: ['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS'],
     };
     // Define PORT & HOST
     const port: number = parseInt(process.env.PORT, 10) || parseInt(config.get('server.port'), 10);
     const host: string = process.env.HOST || config.get('server.host');
 
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, nestApplicationOptions);
     await app.listen(port);
+
+    app.enableCors(corsOptions);
 
     const options = new DocumentBuilder()
         .setTitle('suivi-cds')
