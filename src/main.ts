@@ -35,14 +35,6 @@ async function bootstrap() {
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS'],
     };
-    // Define PORT & HOST
-    const port: number = parseInt(process.env.PORT, 10) || parseInt(config.get('server.port'), 10);
-    const host: string = process.env.HOST || config.get('server.host');
-
-    const app = await NestFactory.create(AppModule, nestApplicationOptions);
-    await app.listen(port);
-
-    app.enableCors(corsOptions);
 
     const options = new DocumentBuilder()
         .setTitle('suivi-cds')
@@ -50,12 +42,22 @@ async function bootstrap() {
         // .setVersion(version)
         // .setBasePath(prefix)
         .addTag('Client')
-
+        .addTag('Task mode')
         // .addBearerAuth( 'Authorization')
         .setSchemes(config.get('server.scheme'))
         .build();
+
+    // Define PORT & HOST
+    const port: number = parseInt(process.env.PORT, 10) || parseInt(config.get('server.port'), 10);
+    const host: string = process.env.HOST || config.get('server.host');
+
+    const app = await NestFactory.create(AppModule, nestApplicationOptions);
+
+    app.enableCors(corsOptions);
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('/docs', app, document);
+
+    await app.listen(port);
 }
 
 configureLogging();

@@ -25,6 +25,7 @@
     "@nestjs/swagger": "^2.0.2",
     "@nestjs/testing": "^5.0.0",
     "@nestjs/websockets": "^5.0.0",
+    "class-validator": "^0.8.5",
     "config": "^1.30.0",
     "log4js": "^2.9.0",
     "mongoose": "^5.1.6",
